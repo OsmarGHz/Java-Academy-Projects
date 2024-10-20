@@ -1,3 +1,4 @@
+/*
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,5 +33,28 @@ public class PruebaTemporizador {
         while (timer.isRunning()) {
             // Este bucle espera activamente sin usar Thread.sleep
         }
+    }
+}
+*/
+
+import java.util.Date;
+import java.util.*;
+
+// Using millis
+class PruebaTemporizador {
+    private final Date createdDate = new java.util.Date();
+
+    public int getAgeInSeconds() {
+        java.util.Date now = new java.util.Date();
+        return (int)((now.getTime() - this.createdDate.getTime()) / 1000);
+    }
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        PruebaTemporizador temporizador = new PruebaTemporizador();
+        System.out.println("Ingrese una \"a\" cuando desee contar segundos: ");
+        entrada.next();
+        int k = temporizador.getAgeInSeconds();
+        System.out.println(k);
     }
 }
