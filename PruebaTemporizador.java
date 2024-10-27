@@ -56,5 +56,6 @@ class PruebaTemporizador {
         entrada.next();
         int k = temporizador.getAgeInSeconds();
         System.out.println(k);
+        entrada.close();
     }
 }
