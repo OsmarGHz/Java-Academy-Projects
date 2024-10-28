@@ -2,7 +2,6 @@ package propiedades;
 
 public abstract class Propiedades {
     private int valorMonetario, medidaLargo, medidaAncho, area;
-    private int valorParaSeguro = 300000, areaParaSeguro = 400;
     private String tipoPropiedad;
 
     public int calcularArea(int medidaLargo, int medidaAncho){
@@ -16,6 +15,8 @@ public abstract class Propiedades {
         this.area = calcularArea(medidaLargo, medidaAncho);
         this.tipoPropiedad = tipoPropiedad;
     }
+
+    public abstract int getCuantoPuedeAsegurarse();
 
     //Setters
     public void setValorMonetario(int valorMonetario){
@@ -49,15 +50,22 @@ public abstract class Propiedades {
         return area;
     }
 
-    public int getAreaParaSeguro(){
-        return areaParaSeguro;
-    }
-
-    public int getvalorParaSeguro(){
-        return valorParaSeguro;
-    }
-
     public String getTipoPropiedad(){
         return tipoPropiedad;
+    }
+
+    public void imprimirDatosGenerales(){
+        System.out.println("\nCaracteristicas de la propiedad 1:\n\tArea: "+this.getArea()
+                + "\n\tLargo: "+this.getMedidaLargo() + "\n\tAncho: "+this.getMedidaAncho()
+                + "\n\tTipo de propiedad: "+this.getTipoPropiedad() + "\n\tValor Monetario: "+this.getvalorMonetario()
+                + "\n\tPuede asegurarse ahora mismo por: "+this.getCuantoPuedeAsegurarse());
+    }
+
+    public static void main(String[] args) {
+        Propiedades propiedad[] = new Propiedades[3];
+        propiedad[0] = new ViviendaResidencial(200000, 70, 100);
+        propiedad[1] = new Negocio(10, 2, 50);
+        propiedad[2] = new Terreno(400000, 9, 10);
+        for(int i=0;i<propiedad.length;i++) propiedad[i].imprimirDatosGenerales();
     }
 }
