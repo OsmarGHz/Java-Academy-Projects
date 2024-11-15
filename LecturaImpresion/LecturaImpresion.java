@@ -1,40 +1,64 @@
 import java.io.*;
-import java.util.*;
 
 public class LecturaImpresion {
-    
 
-    public static void main(String[] args) {
-        Scanner entrada = new Scanner(System.in);
-        int limAlumnos=40;
-        int calificaciones[][];
-        calificaciones = new int[limAlumnos][3];
-        for(int i=0;i<=limAlumnos;i++){
+    public static void main(String[] args) throws IOException {
+        // Crear el lector de datos desde el teclado
+        InputStreamReader isr = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(isr);
+
+        System.out.print("Ingrese la cantidad de alumnos: ");
+        int limAlumnos = Integer.parseInt(br.readLine());
+
+        double calificaciones[][] = new double[limAlumnos][3];
+        double promedios[] = new double[limAlumnos];
+
+        // Leer calificaciones y calcular promedios
+        for (int i = 0; i < limAlumnos; i++) {
+            System.out.println("Alumno " + (i + 1) + ":");
+            double sumaCalificaciones = 0;
             for (int j = 0; j < 3; j++) {
-                System.out.println("Ingrese la calificación número "+j+" del alumno "+i+": ");
-                calificaciones[i][j]=entrada.nextInt();
+                System.out.print("Ingrese la calificación " + (j + 1) + " del alumno " + (i + 1) + ": ");
+                calificaciones[i][j] = Double.parseDouble(br.readLine());
+                sumaCalificaciones += calificaciones[i][j];
             }
-            System.out.println("\n");
+            promedios[i] = sumaCalificaciones / 3;
+            System.out.println("Promedio del alumno " + (i + 1) + ": " + String.format("%.2f", promedios[i]));
+            System.out.println();
         }
-        entrada.close();
+        // Cerrar el BufferedReader de entrada
+        br.close();
+        // Escribir y leer del archivo
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("calificaciones_alumnos.txt"));
+            BufferedReader fileReader = new BufferedReader(new FileReader("calificaciones_alumnos.txt"));
 
-        try{ //primero en buffer y luego en fichero
-            BufferedWriter bw=new BufferedWriter(new FileWriter("null.txt"));
-            BufferedReader br=new BufferedReader(new FileReader("null.txt"));
-            //Escribimos en el fichero
-            bw.write("Calificaciones alumnos:"); 
+            // Escribimos las calificaciones y promedios en el archivo
+            bw.write("Calificaciones de los alumnos:");
             bw.newLine();
-            bw.write("Seguimos usando Buffered");
-            //Limpiar el buffer 
-            bw.flush();
-            //Leemos el fichero y lo mostramos por pantalla
-            String linea=br.readLine();
-            while(linea!=null){ 
-                System.out.println(linea); 
-                linea=br.readLine();
+            for (int i = 0; i < limAlumnos; i++) {
+                bw.write("Alumno " + (i + 1) + ": ");
+                for (int j = 0; j < 3; j++) {
+                    bw.write("Calificación " + (j + 1) + ": " + calificaciones[i][j] + " ");
+                }
+                bw.write(" | Promedio: " + String.format("%.2f", promedios[i]));
+                bw.newLine();
             }
+            bw.flush(); // Limpiar el buffer
             bw.close();
-            br.close();
-        }catch(IOException e){ System.out.println("Error E/S: "+e); }
+
+            // Leer y mostrar el contenido del archivo por pantalla
+            System.out.println("\nContenido del archivo:");
+            String linea = fileReader.readLine();
+            while (linea != null) {
+                System.out.println(linea);
+                linea = fileReader.readLine();
+            }
+            // Cerrar el BufferedReader del archivo
+            fileReader.close();
+
+        } catch (IOException e) {
+            System.out.println("Error de E/S: " + e);
+        }
     }
 }
