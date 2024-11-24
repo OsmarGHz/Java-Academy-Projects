@@ -1,19 +1,25 @@
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
 
-public class MyFrame extends JFrame{
-    MyFrame(){
-        this.setSize(420, 420);
-        this.setTitle("Hola mundoooooo!");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Exit the application
-        //this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); //Hide the application
-        //this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //Hide the application
-        this.setResizable(false);
+public class MyFrame extends JFrame implements ActionListener {
+    JButton button;
+    MyFrame() {
+        button = new JButton("Click Me");
+        button.setBounds(200,100,100,50);
+        button.addActionListener(this);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setLayout(null);
+        this.setSize(500, 500);
         this.setVisible(true);
+        this.add(button);
+    }
 
-        ImageIcon icon = new ImageIcon("minRecycle.png"); //ImageIcon creation
-        this.setIconImage(icon.getImage());
-        this.getContentPane().setBackground(new Color(0, 0, 0));
+
+    @Override
+    public void actionPerformed(ActionEvent e){
+        if (e.getSource()==button){
+            System.out.println("Poo");
+        }
     }
 }
