@@ -36,7 +36,7 @@ public class Labels {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.add(label);
-        frame.pack();
+        frame.pack(); //Resizes the size of the frame to accomodate all the components that are in the frame
 
     }
 }
